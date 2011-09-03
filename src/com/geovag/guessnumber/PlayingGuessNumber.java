@@ -21,6 +21,14 @@ public class PlayingGuessNumber extends ListActivity {
 	
 	}
 	
+	public final class SerializationField
+	{
+		
+		public static final String GuessedNumber= "GuessedNumber";
+		public static final String ProposalCount= "ProposalCount";
+		public static final String History = "History";
+	}
+	
 	private static Random randomizer = new Random();
 	
 	public int guessedNumber;
@@ -51,12 +59,20 @@ public class PlayingGuessNumber extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.playing);
 		
-		//TODO : handle to saved instance state..
-		guessedNumber = randomizer.nextInt(1001);
-		proposalCount = 0;
+		
+		guessedNumber = (savedInstanceState == null) ? randomizer.nextInt(1001) :
+	            (Integer) savedInstanceState.getSerializable(SerializationField.GuessedNumber);
+		
+
+		proposalCount = (savedInstanceState == null) ?0 :
+			(Integer) savedInstanceState.getSerializable(SerializationField.ProposalCount);
+		
+		
 	
 		proposedNumber = (EditText) findViewById(R.id.proposedNumber);
-		results = new ArrayAdapter<String>(this,R.layout.guessed_row );
+		results = (savedInstanceState == null) ? new ArrayAdapter<String>(this,R.layout.guessed_row ):
+			new ArrayAdapter<String>(this,R.layout.guessed_row, (String[]) savedInstanceState.getSerializable(SerializationField.ProposalCount));
+		
 		setListAdapter(results);
 		
 		proposeButton = (Button) findViewById(R.id.proposeButton);
@@ -68,7 +84,24 @@ public class PlayingGuessNumber extends ListActivity {
 			}
 		});
 	}
-
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		
+		String[] history = new String[results.getCount() ];
+		for(int i=0;i< history.length;i++)
+		{
+			history[i] = results.getItem(i);
+		}
+		
+		outState.putSerializable(SerializationField.GuessedNumber, guessedNumber);
+		outState.putSerializable(SerializationField.History, history);
+		outState.putSerializable(SerializationField.ProposalCount, proposalCount);
+		
+	}
+	
+	
 	private void newProposal()
 	{
 		proposalCount ++;

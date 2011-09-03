@@ -54,7 +54,7 @@ public class GuessNumberDbAdapter {
 	     */
 	    private static final String DATABASE_CREATE =
 	        "create table GuessGame (_id integer primary key autoincrement, "
-	        + "EllapsedTime integer, GuessCount integer);";
+	        + "ElapsedTime integer, GuessCount integer);";
 
 	    private static final String DATABASE_NAME = "data";
 	    private static final String DATABASE_TABLE = "GuessGame";
@@ -187,9 +187,9 @@ public class GuessNumberDbAdapter {
 	    	 * Default constructor
 	    	 */
 	    	public Result() {
-	    	min = -1;
-	    	max = -1;
-	    	average = -1;
+	    	min = Integer.MAX_VALUE;
+	    	max = Integer.MIN_VALUE;
+	    	average = 0;
 	    	
 	    	}
 	    	/**
@@ -213,7 +213,7 @@ public class GuessNumberDbAdapter {
 	     */
 	    public Result calculateResult() throws SQLException {
 	    	Result result = new Result();
-	    	Cursor mCursor =
+	    	/*Cursor mCursor =
 
 		            mDb.  query(true, DATABASE_TABLE, new String[] {"min('GuessCount')",
 		            		"max('GuessCount')", "avg('GuessCount')"}, null, null,
@@ -222,9 +222,31 @@ public class GuessNumberDbAdapter {
 		            mCursor.moveToFirst();
 		            result.min = mCursor.getInt(0);
 		            result.max = mCursor.getInt(1);
-		            result.average = mCursor.getDouble(2);
-		        }
-		        
+		            result.average = mCursor.getInt(2);
+		        }*/
+	    	Cursor results = fetchAllResult();
+	    	if(results != null && results.moveToFirst())
+	    	{
+	    		
+	    		while(!results.isAfterLast())
+	    		{
+	    			int num = results.getInt(results.getColumnIndexOrThrow(Keys.GuessCount));
+	    			if(num < result.min)
+	    			{
+	    				result.min = num;
+	    			}
+	    			if(num > result.max)
+	    			{
+	    				result.max = num;
+	    			}
+	    			result.average += num;
+	    			
+	    			results.moveToNext();
+	    		}
+	    		
+	    		result.average /= results.getCount();
+	    	}
+		    
 	    	return result;
 	    }
 	   

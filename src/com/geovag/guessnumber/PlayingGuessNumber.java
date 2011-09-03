@@ -2,7 +2,9 @@ package com.geovag.guessnumber;
 
 import java.util.Random;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,10 +26,25 @@ public class PlayingGuessNumber extends ListActivity {
 	public int guessedNumber;
 	
 	private EditText proposedNumber;
+	private int proposalCount;
 	private Button proposeButton;
 	
 	private ArrayAdapter<String> results;
 	
+	private GuessNumberDbAdapter _db;
+    /**
+     * Gets the database connection
+     * if the database is not opened, open it
+     * @return
+     */
+    public GuessNumberDbAdapter GetDB()
+    {
+    	if(_db == null)
+    	{
+    		_db = new GuessNumberDbAdapter(this).open();
+    	}
+    	return _db;
+    }
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +53,7 @@ public class PlayingGuessNumber extends ListActivity {
 		
 		//TODO : handle to saved instance state..
 		guessedNumber = randomizer.nextInt(1001);
+		proposalCount = 0;
 	
 		proposedNumber = (EditText) findViewById(R.id.proposedNumber);
 		results = new ArrayAdapter<String>(this,R.layout.guessed_row );
@@ -53,24 +71,40 @@ public class PlayingGuessNumber extends ListActivity {
 
 	private void newProposal()
 	{
+		proposalCount ++;
 		int proposal = Integer.parseInt(proposedNumber.getText().toString());
 		if(proposal == guessedNumber)
 		{
-			results.insert("Win!", 0);
-			proposedNumber.setEnabled(false);
-			proposeButton.setEnabled(false);
+			winDialog(proposalCount);
 			
 		}
 		else if (proposal < guessedNumber)
 		{
-			results.insert(String.format("Guessed number is greather than %1$d",proposal),0);
+			results.insert(String.format(getText(R.string.GuessedNumberGreather).toString(),proposal),0);
 		}
 		else
 		{
-			results.insert(String.format("Guessed number is lesser than %1$d",proposal),0);
+			results.insert(String.format(getText(R.string.GuessedNumberLesser).toString(),proposal),0);
 		}
 		
 		proposedNumber.setText("");
+	}
+	
+	private void winDialog(int guessCount)
+	{
+		
+		GetDB().storeResult(0, guessCount);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(String.format(getText(R.string.Congrats).toString(),guessCount))
+		       .setCancelable(false)
+		       .setPositiveButton(R.string.Continue, new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   PlayingGuessNumber.this.setResult(RESULT_OK);
+		        	   PlayingGuessNumber.this.finish();
+		           }
+		       })
+		       .setIcon(R.drawable.icon);
+		builder.create().show();
 	}
 	
 	

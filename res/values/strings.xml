@@ -11,4 +11,8 @@
     <string name="YourGuess">Your Guess :</string>
     <string name="Propose">Propose</string>
     <string name="QuitMenu">Quit</string>
+    <string name="GuessedNumberGreather">Guessed number is greather than %1$d</string>
+    <string name="GuessedNumberLesser">Guessed number is lesser than %1$d</string>
+    <string name="Congrats">You guessed the number with %1$d guesses, congratulations !</string>
+    <string name="Continue">Continue</string>
 </resources>

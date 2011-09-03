@@ -2,4 +2,10 @@
 <resources>
     <string name="hello">Hello World, WelcomeGuessNumber!</string>
     <string name="app_name">Guess a Number</string>
+    <string name="WelcomeDescription">Guess a number between 0 and 1000</string>
+    <string name="MinimumGuess">Minimum Guess</string>
+    <string name="MaximumGuess">Maximum Guess</string>
+    <string name="AverageGuess">Average Guess</string>
+    <string name="StartGame">start game</string>
+    <string name="stats">Statistic</string>
 </resources>

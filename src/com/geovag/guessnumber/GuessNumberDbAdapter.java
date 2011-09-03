@@ -53,7 +53,7 @@ public class GuessNumberDbAdapter {
 	     * Database creation sql statement
 	     */
 	    private static final String DATABASE_CREATE =
-	        "create table notes (_id integer primary key autoincrement, "
+	        "create table GuessGame (_id integer primary key autoincrement, "
 	        + "EllapsedTime integer, GuessCount integer);";
 
 	    private static final String DATABASE_NAME = "data";
@@ -176,6 +176,56 @@ public class GuessNumberDbAdapter {
 	        return mCursor;
 
 	    }
+	    
+	    /**
+	     * @author GeoVah
+	     * our result data
+	     */
+	    public class Result
+	    {
+	    	/**
+	    	 * Default constructor
+	    	 */
+	    	public Result() {
+	    	min = -1;
+	    	max = -1;
+	    	average = -1;
+	    	
+	    	}
+	    	/**
+	    	 * minimum guess 
+	    	 */
+	    	public int min;
+	    	/**
+	    	 * maximum guess
+	    	 */
+	    	public int max;
+	    	/**
+	    	 * average guess
+	    	 */
+	    	public double average;
+	    }
 
+	    /**
+	     * calculate the result information from data
+	     * @return
+	     * @throws SQLException
+	     */
+	    public Result calculateResult() throws SQLException {
+	    	Result result = new Result();
+	    	Cursor mCursor =
+
+		            mDb.  query(true, DATABASE_TABLE, new String[] {"min('GuessCount')",
+		            		"max('GuessCount')", "avg('GuessCount')"}, null, null,
+		                    null, null, null, null);
+		        if (mCursor != null) {
+		            mCursor.moveToFirst();
+		            result.min = mCursor.getInt(0);
+		            result.max = mCursor.getInt(1);
+		            result.average = mCursor.getDouble(2);
+		        }
+		        
+	    	return result;
+	    }
 	   
 }

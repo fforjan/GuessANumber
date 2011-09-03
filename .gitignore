@@ -12,3 +12,4 @@ bin/com/geovag/guessnumber/R$id.class
 bin/com/geovag/guessnumber/GuessNumberDbAdapter$DatabaseHelper.class
 bin/com/geovag/guessnumber/GuessNumberDbAdapter$Keys.class
 bin/com/geovag/guessnumber/GuessNumberDbAdapter.class
+bin/com/geovag/guessnumber/GuessNumberDbAdapter$Result.class

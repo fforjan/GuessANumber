@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
     <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="center_horizontal" android:text="@string/YourGuess"></TextView>
-    <EditText android:layout_width="match_parent" android:id="@+id/editText1" android:layout_height="wrap_content" android:inputType="number"/>
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:id="@+id/proposedNumber"/>
     
     <Button android:layout_width="match_parent" android:id="@+id/proposeButton" android:layout_height="wrap_content" android:text="@string/Propose"></Button>
     <ListView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@android:id/list"></ListView>

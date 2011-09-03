@@ -8,4 +8,7 @@
     <string name="AverageGuess">Average Guess</string>
     <string name="StartGame">start game</string>
     <string name="stats">Statistic</string>
+    <string name="YourGuess">Your Guess :</string>
+    <string name="Propose">Propose</string>
+    <string name="QuitMenu">Quit</string>
 </resources>

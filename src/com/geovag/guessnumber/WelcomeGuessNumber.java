@@ -2,7 +2,10 @@ package com.geovag.guessnumber;
 
 import junit.framework.Assert;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class WelcomeGuessNumber extends Activity {
@@ -24,8 +27,28 @@ public class WelcomeGuessNumber extends Activity {
         Assert.assertNotNull(_avgTextView);
         
         updateStatistics();
+        
+        Button startGame = (Button) findViewById(R.id.startGame);
+        startGame.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+            	startPlaying();
+            }
+
+        });
     }
     
+    private void startPlaying()
+    {    	
+       	Intent i = new Intent(this, PlayingGuessNumber.class);
+    	startActivityForResult(i, ActivityList.Playing );
+    }
+    
+    @Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		updateStatistics();
+	}
     
     private GuessNumberDbAdapter _db;
     /**

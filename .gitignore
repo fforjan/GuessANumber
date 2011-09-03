@@ -13,3 +13,7 @@ bin/com/geovag/guessnumber/GuessNumberDbAdapter$DatabaseHelper.class
 bin/com/geovag/guessnumber/GuessNumberDbAdapter$Keys.class
 bin/com/geovag/guessnumber/GuessNumberDbAdapter.class
 bin/com/geovag/guessnumber/GuessNumberDbAdapter$Result.class
+bin/com/geovag/guessnumber/ActivityList.class
+bin/com/geovag/guessnumber/PlayingGuessNumber$MenuId.class
+bin/com/geovag/guessnumber/PlayingGuessNumber.class
+bin/com/geovag/guessnumber/WelcomeGuessNumber$1.class

@@ -213,40 +213,17 @@ public class GuessNumberDbAdapter {
 	     */
 	    public Result calculateResult() throws SQLException {
 	    	Result result = new Result();
-	    	/*Cursor mCursor =
+	    	Cursor mCursor =
 
-		            mDb.  query(true, DATABASE_TABLE, new String[] {"min('GuessCount')",
-		            		"max('GuessCount')", "avg('GuessCount')"}, null, null,
+		            mDb.  query(true, DATABASE_TABLE, new String[] {"min(GuessCount)",
+		            		"max(GuessCount)", "avg(GuessCount)"}, null, null,
 		                    null, null, null, null);
 		        if (mCursor != null) {
 		            mCursor.moveToFirst();
 		            result.min = mCursor.getInt(0);
 		            result.max = mCursor.getInt(1);
-		            result.average = mCursor.getInt(2);
-		        }*/
-	    	Cursor results = fetchAllResult();
-	    	if(results != null && results.moveToFirst())
-	    	{
-	    		
-	    		while(!results.isAfterLast())
-	    		{
-	    			int num = results.getInt(results.getColumnIndexOrThrow(Keys.GuessCount));
-	    			if(num < result.min)
-	    			{
-	    				result.min = num;
-	    			}
-	    			if(num > result.max)
-	    			{
-	    				result.max = num;
-	    			}
-	    			result.average += num;
-	    			
-	    			results.moveToNext();
-	    		}
-	    		
-	    		result.average /= results.getCount();
-	    	}
-		    
+		            result.average = mCursor.getDouble(2);
+		        }
 	    	return result;
 	    }
 	   

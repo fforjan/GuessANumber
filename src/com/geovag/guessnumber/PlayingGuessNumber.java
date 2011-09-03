@@ -70,6 +70,8 @@ public class PlayingGuessNumber extends ListActivity {
 		
 	
 		proposedNumber = (EditText) findViewById(R.id.proposedNumber);
+		
+		
 		results = (savedInstanceState == null) ? new ArrayAdapter<String>(this,R.layout.guessed_row ):
 			new ArrayAdapter<String>(this,R.layout.guessed_row, (String[]) savedInstanceState.getSerializable(SerializationField.ProposalCount));
 		
@@ -80,6 +82,7 @@ public class PlayingGuessNumber extends ListActivity {
 			
 			@Override
 			public void onClick(View v) {
+				if(proposedNumber.getText().length() > 0)
 				newProposal();
 			}
 		});

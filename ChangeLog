@@ -1,0 +1,55 @@
+Frederic Forjan <fforjan@free.fr>t2011-09-03
+
+ext view is empty        correct bug when the proposed    
+    
+    Signed-off-by: Frederic Forjan <fforjan@free.fr>
+
+Frederic Forjan <fforjan@free.fr>t2011-09-03
+
+    add serialisation state
+    
+    Signed-off-by: Frederic Forjan <fforjan@free.fr>
+
+Frederic Forjan <fforjan@free.fr>t2011-09-03
+
+he stats are calculate by SQLLite           
+    
+    Signed-off-by: Frederic Forjan <fforjan@free.fr>
+
+Frederic Forjan <fforjan@free.fr>t2011-09-03
+
+    stats are now working !
+    
+    Signed-off-by: Frederic Forjan <fforjan@free.fr>
+
+Frederic Forjan <fforjan@free.fr>t2011-09-03
+
+     working game :)
+
+Frederic Forjan <fforjan@free.fr>t2011-09-03
+
+    Add Playing activity
+    
+    Signed-off-by: Frederic Forjan <fforjan@free.fr>
+
+Frederic Forjan <fforjan@free.fr>t2011-09-03
+
+o it        correct the database manager and update the statistics according    
+    
+    Signed-off-by: Frederic Forjan <fforjan@free.fr>
+
+Frederic Forjan <fforjan@free.fr>t2011-09-03
+
+    Add our basic database adapter
+
+Frederic Forjan <fforjan@free.fr>t2011-09-03
+
+    Welcome screen is design
+    
+    Signed-off-by: Frederic Forjan <fforjan@free.fr>
+
+Frederic Forjan <fforjan@free.fr>t2011-09-03
+
+    Initial import
+    
+    Signed-off-by: Frederic Forjan <fforjan@free.fr>

@@ -20,3 +20,7 @@ bin/com/geovag/guessnumber/WelcomeGuessNumber$1.class
 bin/com/geovag/guessnumber/PlayingGuessNumber$1.class
 bin/com/geovag/guessnumber/PlayingGuessNumber$2.class
 bin/com/geovag/guessnumber/PlayingGuessNumber$SerializationField.class
+bin/com/geovag/guessnumber/GuessNumberApplication.class
+bin/com/geovag/guessnumber/WelcomeView.class
+bin/com/geovag/guessnumber/WelcomeViewModel$1.class
+bin/com/geovag/guessnumber/WelcomeViewModel.class

@@ -1,4 +1,4 @@
-package com.geovag.guessnumber;
+package com.geovag.guessnumber.model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.util.Log;
  * @author GeoVah
  * Database adapter for the guess number game
  */
-public class GuessNumberDbAdapter {
+public class GuessNumberModel {
 
 	/**
 	 * @author GeoVah
@@ -90,7 +90,7 @@ public class GuessNumberDbAdapter {
 	     * 
 	     * @param ctx the Context within which to work
 	     */
-	    public GuessNumberDbAdapter(Context ctx) {
+	    public GuessNumberModel(Context ctx) {
 	        this.mCtx = ctx;
 	    }
 
@@ -103,7 +103,7 @@ public class GuessNumberDbAdapter {
 	     *         initialization call)
 	     * @throws SQLException if the database could be neither opened or created
 	     */
-	    public GuessNumberDbAdapter open() throws SQLException {
+	    public GuessNumberModel open() throws SQLException {
 	        mDbHelper = new DatabaseHelper(mCtx);
 	        mDb = mDbHelper.getWritableDatabase();
 	        return this;

@@ -1,4 +1,7 @@
-package com.geovag.guessnumber;
+package com.geovag.guessnumber.viewmodel;
+
+import com.geovag.guessnumber.PlayingGuessNumber;
+import com.geovag.guessnumber.model.GuessNumberModel;
 
 import gueei.binding.Command;
 import gueei.binding.observables.DoubleObservable;
@@ -23,7 +26,7 @@ public class WelcomeViewModel {
 		}    
 	};
 	
-    private GuessNumberDbAdapter _db;
+    private GuessNumberModel _db;
     
     
     public WelcomeViewModel(Activity activity)
@@ -31,7 +34,7 @@ public class WelcomeViewModel {
     	if(activity ==null) { throw new NullPointerException("activity");}
     	
     	_activity = activity;
-    	_db = new GuessNumberDbAdapter(_activity).open();
+    	_db = new GuessNumberModel(_activity).open();
     	
     	MinGuesses = new IntegerObservable();
     	MaxGuesses = new IntegerObservable();
@@ -42,7 +45,7 @@ public class WelcomeViewModel {
     
     protected void updateStatistics()
     {
-    	GuessNumberDbAdapter.Result result = _db.calculateResult();
+    	GuessNumberModel.Result result = _db.calculateResult();
     	
     	MinGuesses.set(result.min);
     	MaxGuesses.set(result.max);

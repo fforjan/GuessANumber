@@ -2,6 +2,8 @@ package com.geovag.guessnumber;
 
 import java.util.Random;
 
+import com.geovag.guessnumber.model.GuessNumberModel;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -39,17 +41,17 @@ public class PlayingGuessNumber extends ListActivity {
 	
 	private ArrayAdapter<String> results;
 	
-	private GuessNumberDbAdapter _db;
+	private GuessNumberModel _db;
     /**
      * Gets the database connection
      * if the database is not opened, open it
      * @return
      */
-    public GuessNumberDbAdapter GetDB()
+    public GuessNumberModel GetDB()
     {
     	if(_db == null)
     	{
-    		_db = new GuessNumberDbAdapter(this).open();
+    		_db = new GuessNumberModel(this).open();
     	}
     	return _db;
     }

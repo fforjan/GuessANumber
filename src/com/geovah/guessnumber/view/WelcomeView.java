@@ -1,7 +1,7 @@
-package com.geovag.guessnumber.view;
+package com.geovah.guessnumber.view;
 
 import com.geovag.guessnumber.R;
-import com.geovag.guessnumber.viewmodel.WelcomeViewModel;
+import com.geovah.guessnumber.viewmodel.WelcomeViewModel;
 
 import gueei.binding.Binder;
 import android.app.Activity;

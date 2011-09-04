@@ -1,8 +1,9 @@
-package com.geovag.guessnumber;
+package com.geovah.guessnumber;
 
 import java.util.Random;
 
-import com.geovag.guessnumber.model.GuessNumberModel;
+import com.geovag.guessnumber.R;
+import com.geovah.guessnumber.model.GuessNumberModel;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;

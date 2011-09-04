@@ -1,7 +1,7 @@
-package com.geovag.guessnumber.viewmodel;
+package com.geovah.guessnumber.viewmodel;
 
-import com.geovag.guessnumber.PlayingGuessNumber;
-import com.geovag.guessnumber.model.GuessNumberModel;
+import com.geovah.guessnumber.PlayingGuessNumber;
+import com.geovah.guessnumber.model.GuessNumberModel;
 
 import gueei.binding.Command;
 import gueei.binding.observables.DoubleObservable;

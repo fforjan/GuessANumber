@@ -1,4 +1,4 @@
-package com.geovag.guessnumber.model;
+package com.geovah.guessnumber.model;
 
 import android.content.ContentValues;
 import android.content.Context;

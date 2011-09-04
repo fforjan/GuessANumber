@@ -1,4 +1,4 @@
-package com.geovag.guessnumber;
+package com.geovah.guessnumber;
 
 public final class ActivityList {
 

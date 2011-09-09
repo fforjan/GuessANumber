@@ -12,6 +12,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.PlayingView"></activity>
+        <activity android:name=".BindingActivity"></activity>
 
     </application>
 </manifest>

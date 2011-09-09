@@ -1,28 +1,51 @@
 package com.geovah.guessnumber;
 
-import java.io.Console;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.logging.ConsoleHandler;
+import java.util.HashMap;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.util.Pair;
 
 public class BindingActivity extends gueei.binding.app.BindingActivity {
     
-    private Object mCcontentViewModel;
+    private HashMap<Integer,Pair<WeakReference<Object>,Method>> mActivityResultHanlder = new HashMap<Integer, Pair<WeakReference<Object>,Method>>() ;
     
     
-    
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            
-    }
-    
-    protected void bindActivityResult(Object contentViewModel){
-           
-    		mCcontentViewModel = contentViewModel;
+    public void bindActivityResult(Object... contentViewModel){
+         
+         if (contentViewModel == null){
+                        throw new ArgumentNullException("contentViewModel");
+                }
+        
+    	for(Object viewModel : contentViewModel)
+    	{
+    		for(Method m :viewModel.getClass().getMethods())
+        	{
+        		ActivityResultBinding annotation = m.getAnnotation(ActivityResultBinding.class);
+        	
+    			if(annotation != null)
+    			{
+    				
+    				Class<?>[] parametersType =  m.getParameterTypes();
+    				if(parametersType== null || parametersType.length != 2 ||
+    						parametersType[0] != int.class || parametersType[1] != Intent.class)
+    				{
+    					throw new IllegalArgumentException(
+    							String.format("%1$s.%2$s must be void (int,Intent)", viewModel.getClass().getCanonicalName(), m.getName()));
+    				}
+    				
+    				mActivityResultHanlder.put(annotation.ActivityId(),
+    						new Pair<WeakReference<Object>,Method>(
+    								new WeakReference<Object>(viewModel),
+    								m
+    								)
+    						);
+    			}
+    			
+        	}
+    	}
     }
 
 
@@ -31,27 +54,29 @@ public class BindingActivity extends gueei.binding.app.BindingActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
     	
-    	for(Method m :mCcontentViewModel.getClass().getMethods())
-    	{
-    		ActivityResultBinding annotation = m.getAnnotation(ActivityResultBinding.class);
     	
-			if(annotation != null && annotation.ActivityId() == requestCode)
+		try {
+			if(mActivityResultHanlder.containsKey(requestCode))
 			{
-				try {
-					m.invoke(mCcontentViewModel, resultCode,data);
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				Pair<WeakReference<Object>,Method> handler = mActivityResultHanlder.get(requestCode);
+				if(!handler.first.isEnqueued()) //our object has been destroyed
+				{
+					handler.second.invoke(handler.first, resultCode,data);
 				}
 			}
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
 		
-    	}
+    	
     }
 }
 

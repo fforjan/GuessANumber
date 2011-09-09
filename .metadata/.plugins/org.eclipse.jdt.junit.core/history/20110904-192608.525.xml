@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="GuessANumber.Test" project="GuessANumber.Test" tests="2" started="2" failures="0" errors="2" ignored="0">
+  <testsuite name="com.geovah.guessanumber.test.WelcomeViewModelTest" time="0.281">
+    <testcase name="testUpdateStatistics" classname="com.geovah.guessanumber.test.WelcomeViewModelTest" time="0.0">
+      <error>com.geovah.guessnumber.ArgumentNullException: activity&#13;
+at com.geovah.guessnumber.viewmodel.WelcomeViewModel.&lt;init&gt;(WelcomeViewModel.java:35)&#13;
+at com.geovah.guessanumber.test.WelcomeViewModelTest.testUpdateStatistics(WelcomeViewModelTest.java:69)&#13;
+at java.lang.reflect.Method.invokeNative(Native Method)&#13;
+at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:204)&#13;
+at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:194)&#13;
+at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:169)&#13;
+at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:154)&#13;
+at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:529)&#13;
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1448)&#13;
+
+</error>
+    </testcase>
+    <testcase name="testWelcomeViewModel" classname="com.geovah.guessanumber.test.WelcomeViewModelTest" time="0.155">
+      <error>com.geovah.guessnumber.ArgumentNullException: activity&#13;
+at com.geovah.guessnumber.viewmodel.WelcomeViewModel.&lt;init&gt;(WelcomeViewModel.java:35)&#13;
+at com.geovah.guessanumber.test.WelcomeViewModelTest.testWelcomeViewModel(WelcomeViewModelTest.java:51)&#13;
+at java.lang.reflect.Method.invokeNative(Native Method)&#13;
+at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:204)&#13;
+at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:194)&#13;
+at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:169)&#13;
+at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:154)&#13;
+at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:529)&#13;
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1448)&#13;
+
+</error>
+    </testcase>
+  </testsuite>
+</testrun>

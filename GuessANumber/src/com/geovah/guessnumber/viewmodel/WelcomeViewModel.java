@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
+import com.geovah.guessnumber.ActivityList;
 import com.geovah.guessnumber.ArgumentNullException;
 import com.geovah.guessnumber.model.GuessNumberModel;
 import com.geovah.guessnumber.view.PlayingView;
@@ -23,7 +24,7 @@ public class WelcomeViewModel {
 	public Command StartPlaying = new Command(){
 		public void Invoke(View view, Object... args) {
 			Intent i = new Intent(_activity, PlayingView.class);
-			_activity.startActivity(i);
+			_activity.startActivityForResult(i, ActivityList.Playing);
 		}    
 	};
 	

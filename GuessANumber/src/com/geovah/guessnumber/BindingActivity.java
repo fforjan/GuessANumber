@@ -13,28 +13,36 @@ public class BindingActivity extends gueei.binding.app.BindingActivity {
     private HashMap<Integer,Pair<WeakReference<Object>,Method>> mActivityResultHanlder = new HashMap<Integer, Pair<WeakReference<Object>,Method>>() ;
     
     
-    public void bindActivityResult(Object... contentViewModel){
+    public void bindActivityResult(Object... contentViewModel) throws ArgumentNullException,IllegalArgumentException,NullPointerException
+    {
          
          if (contentViewModel == null){
                         throw new ArgumentNullException("contentViewModel");
                 }
+         
+         
         
-    	for(Object viewModel : contentViewModel)
+        for(Object viewModel : contentViewModel)
     	{
+        	 
+             
     		for(Method m :viewModel.getClass().getMethods())
         	{
+    			
+    			
         		ActivityResultBinding annotation = m.getAnnotation(ActivityResultBinding.class);
-        	
+
     			if(annotation != null)
     			{
-    				
     				Class<?>[] parametersType =  m.getParameterTypes();
     				if(parametersType== null || parametersType.length != 2 ||
     						parametersType[0] != int.class || parametersType[1] != Intent.class)
     				{
     					throw new IllegalArgumentException(
-    							String.format("%1$s.%2$s must be void (int,Intent)", viewModel.getClass().getCanonicalName(), m.getName()));
+    							String.format("%1$s.%2$s must be void (int,Intent)", viewModel.getClass().getName(), m.getName()));
     				}
+    				
+    				
     				
     				mActivityResultHanlder.put(annotation.ActivityId(),
     						new Pair<WeakReference<Object>,Method>(

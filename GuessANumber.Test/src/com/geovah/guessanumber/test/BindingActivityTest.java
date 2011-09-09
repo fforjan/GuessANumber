@@ -75,7 +75,7 @@ public class BindingActivityTest extends ActivityInstrumentationTestCase2<Bindin
 		public boolean Invoke = false; 
 	}
 	
-	public void testBindActivityResultArgument()
+	public void testBindActivityResultArgumentNull()
 	{
 		final BindingActivity activity = getActivity();
 		
@@ -88,6 +88,10 @@ public class BindingActivityTest extends ActivityInstrumentationTestCase2<Bindin
 						activity.bindActivityResult((Object[])null);
 					}
 				},ArgumentNullException.class).getParameterName());
+	}
+	public void testBindActivityResultWrongArgument()
+	{
+		final BindingActivity activity = getActivity();
 		
 		Assert.assertTrue(
 				AssertException(new Action() {
@@ -96,25 +100,38 @@ public class BindingActivityTest extends ActivityInstrumentationTestCase2<Bindin
 					void Do() {
 						activity.bindActivityResult(new WrongSignature());
 					}
-				},IllegalArgumentException.class).getMessage().startsWith("WrongSignature.Wrong"));
-		
+				},IllegalArgumentException.class).getMessage().startsWith("com.geovah.guessanumber.test.BindingActivityTest$WrongSignature.Wrong"));
+	}
+	
+	public void testBindActivityResultRightWrongArgument()
+	{
+		final BindingActivity activity = getActivity();
+		IllegalArgumentException ex = AssertException(new Action() {
+			
+			@Override
+			void Do() {
+				activity.bindActivityResult(new RighSignature(), new WrongSignature());
+			}
+		},IllegalArgumentException.class);
 		Assert.assertTrue(
-				AssertException(new Action() {
-					
-					@Override
-					void Do() {
-						activity.bindActivityResult(new RighSignature(), new WrongSignature());
-					}
-				},IllegalArgumentException.class).getMessage().startsWith("WrongSignature.Wrong"));
+				ex.getMessage(),
+				ex.getMessage().startsWith("com.geovah.guessanumber.test.BindingActivityTest$WrongSignature.Wrong"));
+	}
+	
+	public void testBindActivityResultWrong1Argument()
+	{
+		final BindingActivity activity = getActivity();
 		
-		Assert.assertTrue(
-				AssertException(new Action() {
+		IllegalArgumentException ex = AssertException(new Action() {
 					
 					@Override
 					void Do() {
 						activity.bindActivityResult(new WrongSignature1());
 					}
-				},IllegalArgumentException.class).getMessage().startsWith("WrongSignature1.Wrong"));
+				},IllegalArgumentException.class);
+		Assert.assertTrue(
+				ex.getMessage(),
+				ex.getMessage().startsWith("com.geovah.guessanumber.test.BindingActivityTest$WrongSignature1.Wrong"));
 	}
 	
 	public void testBindActivityResultInvoke()

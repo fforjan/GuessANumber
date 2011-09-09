@@ -67,9 +67,10 @@ public class BindingActivity extends gueei.binding.app.BindingActivity {
 			if(mActivityResultHanlder.containsKey(requestCode))
 			{
 				Pair<WeakReference<Object>,Method> handler = mActivityResultHanlder.get(requestCode);
-				if(!handler.first.isEnqueued()) //our object has been destroyed
+				Object object = handler.first;
+				if(object != null) //our object has been destroyed
 				{
-					handler.second.invoke(handler.first, resultCode,data);
+					handler.second.invoke(object, resultCode,data);
 				}
 			}
 		} catch (IllegalArgumentException e) {

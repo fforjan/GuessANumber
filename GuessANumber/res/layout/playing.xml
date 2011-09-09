@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:binding="http://www.gueei.com/android-binding/"
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
+  	
+  	
     <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="center_horizontal" android:text="@string/YourGuess"></TextView>
-    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:id="@+id/proposedNumber"/>
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" binding:text="Proposal"></EditText>
     
-    <Button android:layout_width="match_parent" android:id="@+id/proposeButton" android:layout_height="wrap_content" android:text="@string/Propose"></Button>
-    <ListView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@android:id/list"></ListView>
+    <Button android:layout_width="match_parent"  android:layout_height="wrap_content" android:text="@string/Propose" binding:onClick="NewProposal"></Button>
+    <ListView binding:itemSource="Results" binding:itemTemplate="@layout/guessed_row"  android:layout_height="wrap_content" android:layout_width="match_parent" ></ListView>
     
 </LinearLayout>

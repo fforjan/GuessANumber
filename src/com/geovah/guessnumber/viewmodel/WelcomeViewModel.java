@@ -1,14 +1,15 @@
 package com.geovah.guessnumber.viewmodel;
 
-import com.geovah.guessnumber.PlayingGuessNumber;
-import com.geovah.guessnumber.model.GuessNumberModel;
-
 import gueei.binding.Command;
 import gueei.binding.observables.DoubleObservable;
 import gueei.binding.observables.IntegerObservable;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+
+import com.geovah.guessnumber.ArgumentNullException;
+import com.geovah.guessnumber.model.GuessNumberModel;
+import com.geovah.guessnumber.view.PlayingView;
 
 public class WelcomeViewModel {
 
@@ -21,7 +22,7 @@ public class WelcomeViewModel {
 	
 	public Command StartPlaying = new Command(){
 		public void Invoke(View view, Object... args) {
-			Intent i = new Intent(_activity, PlayingGuessNumber.class);
+			Intent i = new Intent(_activity, PlayingView.class);
 			_activity.startActivity(i);
 		}    
 	};
@@ -31,7 +32,7 @@ public class WelcomeViewModel {
     
     public WelcomeViewModel(Activity activity)
     {
-    	if(activity ==null) { throw new NullPointerException("activity");}
+    	if(activity ==null) { throw new ArgumentNullException("activity");}
     	
     	_activity = activity;
     	_db = new GuessNumberModel(_activity).open();
@@ -43,13 +44,14 @@ public class WelcomeViewModel {
     	updateStatistics();
     }
     
-    protected void updateStatistics()
+    public void updateStatistics()
     {
     	GuessNumberModel.Result result = _db.calculateResult();
     	
     	MinGuesses.set(result.min);
     	MaxGuesses.set(result.max);
-    	AverageGuesses.set(result.average);
+    	
+    	AverageGuesses.set(((int)(result.average * 100))/100.0);
     
     }
    

@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/AndroidBinding"/>
-	<classpathentry kind="lib" path="/Users/GeoVah/Projects/android_ws/GuessANumber/lib/android.binding.0.4c.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/GeoVah/Projects/android_ws/GuessANumber/lib/android.binding.0.4c.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

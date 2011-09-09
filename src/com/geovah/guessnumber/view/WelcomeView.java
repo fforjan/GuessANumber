@@ -1,6 +1,6 @@
 package com.geovah.guessnumber.view;
 
-import com.geovag.guessnumber.R;
+import com.geovah.guessnumber.R;
 import com.geovah.guessnumber.viewmodel.WelcomeViewModel;
 
 import gueei.binding.Binder;

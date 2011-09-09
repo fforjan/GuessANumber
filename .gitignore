@@ -52,3 +52,9 @@ bin/com/geovah/guessnumber/R$layout.class
 bin/com/geovah/guessnumber/R$string.class
 bin/com/geovah/guessnumber/R.class
 gen/com/geovah/guessnumber/R.java
+bin/com/geovah/guessnumber/ArgumentNullException.class
+bin/com/geovah/guessnumber/view/PlayingView$1.class
+bin/com/geovah/guessnumber/view/PlayingView$2.class
+bin/com/geovah/guessnumber/view/PlayingView$MenuId.class
+bin/com/geovah/guessnumber/view/PlayingView$SerializationField.class
+bin/com/geovah/guessnumber/view/PlayingView.class

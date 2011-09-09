@@ -1,8 +1,8 @@
-package com.geovah.guessnumber;
+package com.geovah.guessnumber.view;
 
 import java.util.Random;
 
-import com.geovag.guessnumber.R;
+import com.geovah.guessnumber.R;
 import com.geovah.guessnumber.model.GuessNumberModel;
 
 import android.app.AlertDialog;
@@ -16,7 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class PlayingGuessNumber extends ListActivity {
+public class PlayingView extends ListActivity {
 	
 	public final class MenuId
 	{
@@ -138,8 +138,8 @@ public class PlayingGuessNumber extends ListActivity {
 		       .setCancelable(false)
 		       .setPositiveButton(R.string.Continue, new DialogInterface.OnClickListener() {
 		           public void onClick(DialogInterface dialog, int id) {
-		        	   PlayingGuessNumber.this.setResult(RESULT_OK);
-		        	   PlayingGuessNumber.this.finish();
+		        	   PlayingView.this.setResult(RESULT_OK);
+		        	   PlayingView.this.finish();
 		           }
 		       })
 		       .setIcon(R.drawable.icon);

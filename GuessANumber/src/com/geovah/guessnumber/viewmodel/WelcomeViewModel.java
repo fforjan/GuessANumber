@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.geovah.guessnumber.ActivityList;
+import com.geovah.guessnumber.ActivityResultBinding;
 import com.geovah.guessnumber.ArgumentNullException;
 import com.geovah.guessnumber.model.GuessNumberModel;
 import com.geovah.guessnumber.view.PlayingView;
@@ -54,6 +55,12 @@ public class WelcomeViewModel {
     	
     	AverageGuesses.set(((int)(result.average * 100))/100.0);
     
+    }
+    
+    @ActivityResultBinding(ActivityId = ActivityList.Playing)
+    public void onFinishPlaying(int resultCode,Intent data)
+    {
+    	updateStatistics();
     }
    
 }

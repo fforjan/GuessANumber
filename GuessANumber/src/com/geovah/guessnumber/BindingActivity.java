@@ -1,16 +1,16 @@
 package com.geovah.guessnumber;
 
-import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Pair;
 
-public class BindingActivity extends gueei.binding.app.BindingActivity {
+public class BindingActivity extends gueei.binding.app.BindingActivity implements IActivityStarter {
     
-    private HashMap<Integer,Pair<WeakReference<Object>,Method>> mActivityResultHanlder = new HashMap<Integer, Pair<WeakReference<Object>,Method>>() ;
+    private HashMap<Integer,Pair<Object,Method>> mActivityResultHanlder = new HashMap<Integer, Pair<Object,Method>>() ;
     
     
     public void bindActivityResult(Object... contentViewModel) throws ArgumentNullException,IllegalArgumentException,NullPointerException
@@ -45,10 +45,7 @@ public class BindingActivity extends gueei.binding.app.BindingActivity {
     				
     				
     				mActivityResultHanlder.put(annotation.ActivityId(),
-    						new Pair<WeakReference<Object>,Method>(
-    								new WeakReference<Object>(viewModel),
-    								m
-    								)
+    						new Pair<Object,Method>(viewModel,m)
     						);
     			}
     			
@@ -66,12 +63,8 @@ public class BindingActivity extends gueei.binding.app.BindingActivity {
 		try {
 			if(mActivityResultHanlder.containsKey(requestCode))
 			{
-				Pair<WeakReference<Object>,Method> handler = mActivityResultHanlder.get(requestCode);
-				Object object = handler.first;
-				if(object != null) //our object has been destroyed
-				{
-					handler.second.invoke(object, resultCode,data);
-				}
+				Pair<Object,Method> handler = mActivityResultHanlder.get(requestCode);
+				handler.second.invoke(handler.first, resultCode,data);
 			}
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
@@ -87,5 +80,7 @@ public class BindingActivity extends gueei.binding.app.BindingActivity {
 		
     	
     }
+    
+    public Context getContext() { return this;}
 }
 

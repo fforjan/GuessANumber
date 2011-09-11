@@ -121,8 +121,6 @@ public class WelcomeViewModelTest extends ActivityInstrumentationTestCase2<Welco
 		
 		//model.StartPlaying.Invoke(null, new Object[0]);
 		
-		
-		
 	}
 	
 	

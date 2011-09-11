@@ -15,7 +15,7 @@ public class BindingActivityTest extends ActivityInstrumentationTestCase2<Bindin
 		 abstract void Do();
 	}
 	
-	public <T extends Throwable> T AssertException(Action action, Class<T> genericInstance)
+	public static <T extends Throwable> T AssertException(Action action, Class<T> genericInstance)
 	{
 		
 		try

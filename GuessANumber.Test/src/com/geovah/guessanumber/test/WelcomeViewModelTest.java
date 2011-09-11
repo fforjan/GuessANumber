@@ -11,6 +11,7 @@ import java.util.Collection;
 import junit.framework.Assert;
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.geovah.guessnumber.ActivityStarterHelper;
 import com.geovah.guessnumber.ArgumentNullException;
 import com.geovah.guessnumber.view.WelcomeView;
 import com.geovah.guessnumber.viewmodel.WelcomeViewModel;
@@ -20,35 +21,36 @@ import com.geovah.guessnumber.viewmodel.WelcomeViewModel;
  *
  */
 public class WelcomeViewModelTest extends ActivityInstrumentationTestCase2<WelcomeView> {
-
 	
-	
-
 	public WelcomeViewModelTest()
 	{
-		super("com.geovah.guessnumber",WelcomeView.class);
+	        super("com.geovah.guessnumber",WelcomeView.class);
 	}
+
 	
 	/**
 	 * Test method for {@link com.geovah.guessnumber.viewmodel.WelcomeViewModel#WelcomeViewModel(android.app.Activity)}.
 	 */
 	public void testWelcomeViewModel() {
 		
+		
 		try
 		{
 			new WelcomeViewModel(null);
+			Assert.fail("Exception not thrown !");
 		}
 		catch(ArgumentNullException ex)
 		{
-			Assert.assertEquals("activity",ex.getParameterName());
+			Assert.assertEquals("activityStarter",ex.getParameterName());
 		}
 		catch(Exception e)
 		{
 			Assert.fail("Wrong exception catch !");
 		}
 			     
+		ActivityStarterHelper helper = new ActivityStarterHelper(getActivity());
 		
-		WelcomeViewModel model = new WelcomeViewModel(getActivity());
+		WelcomeViewModel model = new WelcomeViewModel(helper);
 		
 		Assert.assertNotNull(model.AverageGuesses);
 		Assert.assertNotNull(model.MinGuesses);
@@ -66,7 +68,9 @@ public class WelcomeViewModelTest extends ActivityInstrumentationTestCase2<Welco
 	 */
 	public void testUpdateStatistics() {
 		
-		WelcomeViewModel model = new WelcomeViewModel(getActivity());
+		ActivityStarterHelper helper = new ActivityStarterHelper(getActivity());
+		
+		WelcomeViewModel model = new WelcomeViewModel(helper);
 		
 		maxGuessUpdated = false;
 		model.MaxGuesses.subscribe(new Observer() {
@@ -115,11 +119,17 @@ public class WelcomeViewModelTest extends ActivityInstrumentationTestCase2<Welco
 	/**
 	 * 
 	 */
-	private void testStartPlaying()
+	public void testStartPlaying()
 	{
-		WelcomeViewModel model = new WelcomeViewModel(getActivity());
+
+		ActivityStarterHelper helper = new ActivityStarterHelper(getActivity());
 		
-		//model.StartPlaying.Invoke(null, new Object[0]);
+		WelcomeViewModel model = new WelcomeViewModel(helper);
+		
+		Assert.assertEquals(0, helper.startedActivity.size());
+		model.StartPlaying.Invoke(null, new Object[0]);
+		Assert.assertEquals(1, helper.startedActivity.size());
+		
 		
 	}
 	

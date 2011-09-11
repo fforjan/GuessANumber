@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Pair;
 
-public class BindingActivity extends gueei.binding.app.BindingActivity implements IActivityStarter {
+public class BindingActivity extends gueei.binding.app.BindingActivity implements IActivityManager {
     
     private HashMap<Integer,Pair<Object,Method>> mActivityResultHanlder = new HashMap<Integer, Pair<Object,Method>>() ;
     

@@ -11,7 +11,7 @@ import java.util.Collection;
 import junit.framework.Assert;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.geovah.guessnumber.ActivityStarterHelper;
+import com.geovah.guessnumber.ActivityManagerHelper;
 import com.geovah.guessnumber.ArgumentNullException;
 import com.geovah.guessnumber.view.WelcomeView;
 import com.geovah.guessnumber.viewmodel.WelcomeViewModel;
@@ -41,14 +41,14 @@ public class WelcomeViewModelTest extends ActivityInstrumentationTestCase2<Welco
 		}
 		catch(ArgumentNullException ex)
 		{
-			Assert.assertEquals("activityStarter",ex.getParameterName());
+			Assert.assertEquals("activityManager",ex.getParameterName());
 		}
 		catch(Exception e)
 		{
 			Assert.fail("Wrong exception catch !");
 		}
 			     
-		ActivityStarterHelper helper = new ActivityStarterHelper(getActivity());
+		ActivityManagerHelper helper = new ActivityManagerHelper(getActivity());
 		
 		WelcomeViewModel model = new WelcomeViewModel(helper);
 		
@@ -68,7 +68,7 @@ public class WelcomeViewModelTest extends ActivityInstrumentationTestCase2<Welco
 	 */
 	public void testUpdateStatistics() {
 		
-		ActivityStarterHelper helper = new ActivityStarterHelper(getActivity());
+		ActivityManagerHelper helper = new ActivityManagerHelper(getActivity());
 		
 		WelcomeViewModel model = new WelcomeViewModel(helper);
 		
@@ -122,7 +122,7 @@ public class WelcomeViewModelTest extends ActivityInstrumentationTestCase2<Welco
 	public void testStartPlaying()
 	{
 
-		ActivityStarterHelper helper = new ActivityStarterHelper(getActivity());
+		ActivityManagerHelper helper = new ActivityManagerHelper(getActivity());
 		
 		WelcomeViewModel model = new WelcomeViewModel(helper);
 		
@@ -133,6 +133,55 @@ public class WelcomeViewModelTest extends ActivityInstrumentationTestCase2<Welco
 		
 	}
 	
+	
+	public void testFinishPlaying()
+	{
+		
+		ActivityManagerHelper helper = new ActivityManagerHelper(getActivity());
+		
+		WelcomeViewModel model = new WelcomeViewModel(helper);
+		
+		maxGuessUpdated = false;
+		model.MaxGuesses.subscribe(new Observer() {
+
+			@Override
+			public void onPropertyChanged(IObservable<?> arg0,
+					Collection<Object> arg1) {
+				maxGuessUpdated = true;
+				
+			}} );
+		
+		minGuessUpdated = false;
+		model.MinGuesses.subscribe(new Observer() {
+
+			@Override
+			public void onPropertyChanged(IObservable<?> arg0,
+					Collection<Object> arg1) {
+				minGuessUpdated = true;
+				
+			}} );
+		
+		
+		avgGuessUpdated = false;
+		model.AverageGuesses.subscribe(new Observer() {
+
+			@Override
+			public void onPropertyChanged(IObservable<?> arg0,
+					Collection<Object> arg1) {
+				avgGuessUpdated = true;
+				
+			}} );
+		
+		Assert.assertFalse(maxGuessUpdated);
+		Assert.assertFalse(minGuessUpdated);
+		Assert.assertFalse(avgGuessUpdated);
+		
+		model.onFinishPlaying(-1,null);
+		
+		Assert.assertTrue(maxGuessUpdated);
+		Assert.assertTrue(minGuessUpdated);
+		Assert.assertTrue(avgGuessUpdated);
+	}
 	
 
 }

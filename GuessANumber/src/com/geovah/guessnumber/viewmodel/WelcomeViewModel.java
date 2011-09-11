@@ -3,21 +3,20 @@ package com.geovah.guessnumber.viewmodel;
 import gueei.binding.Command;
 import gueei.binding.observables.DoubleObservable;
 import gueei.binding.observables.IntegerObservable;
-import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
 import com.geovah.guessnumber.ActivityList;
 import com.geovah.guessnumber.ActivityResultBinding;
 import com.geovah.guessnumber.ArgumentNullException;
-import com.geovah.guessnumber.IActivityStarter;
+import com.geovah.guessnumber.IActivityManager;
 import com.geovah.guessnumber.model.GuessNumberModel;
 import com.geovah.guessnumber.view.PlayingView;
 
 public class WelcomeViewModel {
 
 	
-	IActivityStarter _activityStarter;
+	IActivityManager _activityManager;
 	
 	public IntegerObservable MinGuesses;
 	public IntegerObservable MaxGuesses;
@@ -25,20 +24,20 @@ public class WelcomeViewModel {
 	
 	public Command StartPlaying = new Command(){
 		public void Invoke(View view, Object... args) {
-			Intent i = new Intent(_activityStarter.getContext(), PlayingView.class);
-			_activityStarter.startActivityForResult(i, ActivityList.Playing);
+			Intent i = new Intent(_activityManager.getContext(), PlayingView.class);
+			_activityManager.startActivityForResult(i, ActivityList.Playing);
 		}    
 	};
 	
     private GuessNumberModel _db;
     
     
-    public WelcomeViewModel(IActivityStarter activityStarter)
+    public WelcomeViewModel(IActivityManager activityManager)
     {
-    	if(activityStarter ==null) { throw new ArgumentNullException("activityStarter");}
+    	if(activityManager ==null) { throw new ArgumentNullException("activityManager");}
     	
-    	_activityStarter = activityStarter;
-    	_db = new GuessNumberModel(_activityStarter.getContext()).open();
+    	_activityManager = activityManager;
+    	_db = new GuessNumberModel(_activityManager.getContext()).open();
     	
     	MinGuesses = new IntegerObservable();
     	MaxGuesses = new IntegerObservable();

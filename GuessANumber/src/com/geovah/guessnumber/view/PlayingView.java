@@ -1,15 +1,15 @@
 package com.geovah.guessnumber.view;
 
 import gueei.binding.Binder;
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.geovah.guessnumber.BindingActivity;
 import com.geovah.guessnumber.R;
 import com.geovah.guessnumber.viewmodel.PlayingViewModel;
 
-public class PlayingView extends Activity {
+public class PlayingView extends BindingActivity {
 	
 	public final class MenuId
 	{

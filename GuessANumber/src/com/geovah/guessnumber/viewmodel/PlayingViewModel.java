@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.geovah.guessnumber.ArgumentNullException;
+import com.geovah.guessnumber.IActivityManager;
 import com.geovah.guessnumber.R;
 import com.geovah.guessnumber.model.GuessNumberModel;
 import com.geovah.guessnumber.view.PlayingView.SerializationField;
@@ -26,16 +27,16 @@ public class PlayingViewModel {
 	
 	
 	private GuessNumberModel _db;
-	private Activity _activity;
+	private IActivityManager _activityManager;
 	private int _proposalCount;
    
     
-    public PlayingViewModel(Activity activity)
+    public PlayingViewModel(IActivityManager activityManager)
     {
-    	if(activity ==null) { throw new ArgumentNullException("activity");}
+    	if(activityManager ==null) { throw new ArgumentNullException("activityManager");}
     	
-    	_activity = activity;
-    	_db = new GuessNumberModel(_activity).open();
+    	_activityManager = activityManager;
+    	_db = new GuessNumberModel(_activityManager.getContext()).open();
     	
     }
     
@@ -85,11 +86,11 @@ public class PlayingViewModel {
 		}
 		else if (proposal < _guessedNumber)
 		{
-			Results.add(_activity.getString(R.string.GuessedNumberGreather,proposal));
+			Results.add(_activityManager.getContext().getString(R.string.GuessedNumberGreather,proposal));
 		}
 		else
 		{
-			Results.add(_activity.getString(R.string.GuessedNumberLesser,proposal));
+			Results.add(_activityManager.getContext().getString(R.string.GuessedNumberLesser,proposal));
 		}
 		
 		
@@ -100,13 +101,13 @@ public class PlayingViewModel {
 	{
 		
 		_db.storeResult(0, guessCount);
-		AlertDialog.Builder builder = new AlertDialog.Builder(_activity);
-		builder.setMessage(_activity.getString(R.string.Congrats,guessCount))
+		AlertDialog.Builder builder = new AlertDialog.Builder(_activityManager.getContext());
+		builder.setMessage(_activityManager.getContext().getString(R.string.Congrats,guessCount))
 		       .setCancelable(false)
 		       .setPositiveButton(R.string.Continue, new DialogInterface.OnClickListener() {
 		           public void onClick(DialogInterface dialog, int id) {
-		        	   _activity.setResult(Activity.RESULT_OK);
-		        	   _activity.finish();
+		        	   _activityManager.setResult(Activity.RESULT_OK);
+		        	   _activityManager.finish();
 		           }
 		       })
 		       .setIcon(R.drawable.icon);

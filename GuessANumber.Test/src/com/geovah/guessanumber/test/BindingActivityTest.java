@@ -59,10 +59,26 @@ public class BindingActivityTest extends ActivityInstrumentationTestCase2<Bindin
 		}
 	}
 	
-	class RighSignature
+	class RightSignature
 	{
 		@ActivityResultBinding(ActivityId = 0)
-		public void Wrong(int resultCode,Intent data)
+		public void Right(int resultCode,Intent data)
+		{
+			ResultCode = resultCode;
+			Data = data;
+			Invoke = true;
+		}
+		
+		public int ResultCode = Integer.MIN_VALUE;
+		public Intent Data;
+		
+		public boolean Invoke = false; 
+	}
+	
+	class AnotherRighSignature
+	{
+		@ActivityResultBinding(ActivityId = 0)
+		public void Right(int resultCode,Intent data)
 		{
 			ResultCode = resultCode;
 			Data = data;
@@ -110,7 +126,7 @@ public class BindingActivityTest extends ActivityInstrumentationTestCase2<Bindin
 			
 			@Override
 			void Do() {
-				activity.bindActivityResult(new RighSignature(), new WrongSignature());
+				activity.bindActivityResult(new RightSignature(), new WrongSignature());
 			}
 		},IllegalArgumentException.class);
 		Assert.assertTrue(
@@ -118,6 +134,22 @@ public class BindingActivityTest extends ActivityInstrumentationTestCase2<Bindin
 				ex.getMessage().startsWith("com.geovah.guessanumber.test.BindingActivityTest$WrongSignature.Wrong"));
 	}
 	
+	
+	public void testBindActivityResultNoDoubleId()
+	{
+		final BindingActivity activity = getActivity();
+	
+		IllegalArgumentException ex = AssertException(new Action() {
+				
+				@Override
+				void Do() {
+					activity.bindActivityResult(new RightSignature(), new AnotherRighSignature());
+				}
+			},IllegalArgumentException.class);
+		Assert.assertTrue(
+				ex.getMessage(),
+				ex.getMessage().startsWith("id 0 from com.geovah.guessanumber.test.BindingActivityTest$AnotherRighSignature.Right"));
+	}
 	public void testBindActivityResultWrong1Argument()
 	{
 		final BindingActivity activity = getActivity();
@@ -137,7 +169,7 @@ public class BindingActivityTest extends ActivityInstrumentationTestCase2<Bindin
 	public void testBindActivityResultInvoke()
 	{
 		BindingActivity act = getActivity();
-		RighSignature right  = new RighSignature();
+		RightSignature right  = new RightSignature();
 		
 		Assert.assertEquals(Integer.MIN_VALUE,right.ResultCode);
 		Assert.assertNull(right.Data);

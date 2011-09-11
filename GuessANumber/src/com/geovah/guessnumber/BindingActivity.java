@@ -42,6 +42,16 @@ public class BindingActivity extends gueei.binding.app.BindingActivity implement
     							String.format("%1$s.%2$s must be void (int,Intent)", viewModel.getClass().getName(), m.getName()));
     				}
     				
+    				if(mActivityResultHanlder.containsKey(annotation.ActivityId()))
+    				{
+    					Pair<Object,Method> existing = mActivityResultHanlder.get(annotation.ActivityId());
+    					throw new IllegalArgumentException(
+							String.format("id %1$d from %2$s.%3$s is already handle by %4$s.%5$s", 
+									annotation.ActivityId(),
+									viewModel.getClass().getName(), m.getName(),
+									existing.first.getClass().getName(), existing.second.getName()));
+    				}
+    				
     				
     				
     				mActivityResultHanlder.put(annotation.ActivityId(),
